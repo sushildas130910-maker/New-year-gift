@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Year Surprise ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(#0f2027,#203a43,#2c5364);
+  color:#fff;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px}
+
+h1{font-size:2.2rem;margin-bottom:10px}
+h2{font-weight:400;opacity:.9}
+
+button{
+  padding:12px 24px;
+  border:none;
+  border-radius:25px;
+  background:#ff5fa2;
+  color:#fff;
+  font-size:1rem;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+button:hover{background:#ff3c8f}
+
+/* Envelope */
+.envelope{
+  width:260px;
+  height:170px;
+  background:#f5d7c3;
+  position:relative;
+  cursor:pointer;
+  margin-top:30px;
+  border-radius:6px;
+}
+.envelope:before,.envelope:after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  border:2px solid #d8b4a0;
+  box-sizing:border-box;
+}
+.envelope .heart{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:40px;
+  height:40px;
+  background:#ff5fa2;
+  clip-path:polygon(50% 0%,61% 17%,100% 35%,75% 100%,50% 75%,25% 100%,0 35%,39% 17%);
+}
+
+.letter{
+  display:none;
+  max-width:700px;
+  background:#fff;
+  color:#000;
+  padding:25px;
+  border-radius:10px;
+  margin-top:20px;
+  line-height:1.6;
+}
+
+/* Fireworks */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<section id="start">
+  <h1>🎉 Happy New Year</h1>
+  <h2>Pasandida Aurat 💐</h2>
+  <p>Open Surprise ✨</p>
+
+  <div class="envelope" onclick="openFirst()">
+    <div class="heart"></div>
+  </div>
+</section>
+
+<section id="firstLetter" style="display:none">
+  <div class="letter">
+    You are perfect as the <b>Rosso Corsa</b> shade ❤️<br>
+    Perfect as <b>BMW eyes</b> 👀<br>
+    Beautiful as the <b>GT3 RS</b> 🏁<br>
+    Perfect as <b>Lamborghini curves</b> 🔥<br>
+    Perfect as the <b>BMW M4 alloys</b> ✨
+  </div>
+  <button onclick="openSecond()">Special Surprise 💖</button>
+</section>
+
+<section id="secondLetter" style="display:none">
+  <div class="letter">
+    💫 <b>Happy New Year, my bestie ❤️</b><br><br>
+
+    As this new year begins, I just want you to know how grateful I am to have you in my life.<br><br>
+
+    Meeting you was one of the best things that ever happened to me.<br><br>
+
+    You changed the way I smile, the way I feel, and the way I see life.<br><br>
+
+    You make my days brighter, my heart lighter, and my smiles real.<br><br>
+
+    This new year, I wish for more moments with you, more laughter, and more beautiful memories together.<br><br>
+
+    I hope this year brings you endless happiness, love, and everything your heart truly deserves.<br><br>
+
+    Thank you for being my happiness and my safe place ✨<br><br>
+
+    — <b>Always yours, Mohit 💖</b>
+  </div>
+  <button onclick="showFinal()">One Last Thing 🌌</button>
+</section>
+
+<section id="final" style="display:none">
+  <h1>LOVE 💌</h1>
+  <p>Forever & Always ✨</p>
+</section>
+
+<canvas id="fireworks"></canvas>
+
+<script>
+function openFirst(){
+  document.getElementById("start").style.display="none";
+  document.getElementById("firstLetter").style.display="flex";
+}
+
+function openSecond(){
+  document.getElementById("firstLetter").style.display="none";
+  document.getElementById("secondLetter").style.display="flex";
+}
+
+function showFinal(){
+  document.getElementById("secondLetter").style.display="none";
+  document.getElementById("final").style.display="flex";
+  startFireworks();
+}
+
+/* Fireworks effect */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let particles=[];
+
+function startFireworks(){
+  setInterval(()=>{
+    for(let i=0;i<80;i++){
+      particles.push({
+        x:Math.random()*canvas.width,
+        y:canvas.height,
+        vx:(Math.random()-0.5)*4,
+        vy:-Math.random()*7-3,
+        life:100
+      });
+    }
+  },800);
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    p.life--;
+    ctx.fillStyle="rgba(255,200,200,.8)";
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,2,0,Math.PI*2);
+    ctx.fill();
+    if(p.life<=0)particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+  </html>
